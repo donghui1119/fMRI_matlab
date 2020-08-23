@@ -1,1 +1,1 @@
-# some script for fmri data processing
+matlab scripts for fmri data processing
