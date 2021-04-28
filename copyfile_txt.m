@@ -1,25 +1,25 @@
-%copy selected file from the all file
 
- clc
- clear all
- sublistfile='E:\MyCode\test\name.txt';%subject ID in the txt file
- sublist=fopen(sublistfile,'rt');% open the file, rt:txt file
- nsubs=0;% number of file
+ sublistfile='H:\test\subname.txt';
+ fid=fopen(sublistfile,'rt');
+ nsubs=0;
 while 1
-    sub_name=fgetl(sublist);%read line excluding newline character
-    while (feof(sublist)==0) && (isempty(sub_name))
+    text=fgets(fid);
+    while (feof(fid)==0) && (isempty(text))
+        text=fgets(fid);
     end
-     if feof(sublist), break;end;
-    sub_name=deblank(sub_name);%deblank remove trailling whitespace and null characters from str and return the result as newstr
-    [sub_name, rs]=strtok(sub_name);%strtok:using whitespace character as delimiters, and return the remaining text.
-    if isempty(sub_name), continue; end
-    if sub_name(1)=='#', continue; end
-    if isempty(sub_name)==0
-        nsubs=nsubs+1; 
-        oldpath = 'E:\test\new\';%source path 
-        newpath = 'E:\MyCode\test\copy\';% copy to path
-        filename=[oldpath, sub_name]
-        copyfile (filename,newpath)
+    
+     if feof(fid), break;end;
+    text=deblank(text);
+    [text, rs]=strtok(text);
+    if isempty(text), continue; end
+    if text(1)=='#', continue; end
+    if isempty(text)==0
+        nsubs=nsubs+1;
+%          oPAR.subjects{nsubs}=text;
+        SOURCE_PATH_t = 'H:\test\file\';%source path 
+        DST_PATH_t = 'H:\test\new\';% copy to path
+        filename=['H:\test\file\', text]
+        copyfile(filename,DST_PATH_t)
   
     end
 end
